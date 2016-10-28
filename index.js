@@ -54,7 +54,8 @@ exports.start = function (options) {
     if (options.verbose)
       console.log('Recording %d bytes', data.length);
 
-    recording.write(new Buffer(data, 'binary')); // convert to binary buffer
+    if (!recording._readableState.ended)
+      recording.write(new Buffer(data, 'binary')); // convert to binary buffer
   });
 
   // Verbose ending
